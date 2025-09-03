@@ -1,38 +1,477 @@
-.App {
-  text-align: center;
+/* Global - Full page setup */
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Full page centering container */
+#root {
   min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* App Container - Full page responsive */
+.app {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 520px;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 85vh;
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.app.dark {
+  background: #1e1e2f;
+  color: #ccc;
+}
+
+/* Responsive: Full width on small screens */
+@media (max-width: 600px) {
+  .app {
+    width: 95vw;
+    padding: 20px 16px;
+    border-radius: 12px;
+    min-height: 90vh;
+  }
+}
+
+/* Header */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+header h1 {
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin: 0;
+}
+
+.dark-toggle {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 0.95rem;
+  transition: background-color 0.3s;
+}
+
+.dark-toggle:hover {
+  background-color: #357ABD;
+}
+
+/* Real-time clock */
+.clock-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.clock {
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(90deg,#91b7c7,#6eb4d1,#6cbeed);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 24px;
+  box-shadow: 0 2px 12px rgba(60,120,220,0.15);
+}
+
+/* Welcome Section */
+.welcome {
+  width: 100%;
+  margin: 12px 0 20px 0;
+  font-size: 1.05rem;
+  color: inherit;
+  text-align: left;
+}
+
+/* Task adder container - Better alignment */
+.task-adder-container {
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 18px;
+  background-color: #f6f8fa;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(74,144,226,0.11);
+}
+
+.app.dark .task-adder-container {
+  background-color: #232334;
+}
+
+/* Form - User-friendly alignment */
+.todo-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.todo-form input[type="text"],
+.todo-form select,
+.todo-form input[type="date"] {
+  flex: 2 1 140px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1.8px solid #ccc;
+  outline: none;
+  min-width: 120px;
+  box-sizing: border-box;
+}
+
+.app.dark .todo-form input[type="text"],
+.app.dark .todo-form select,
+.app.dark .todo-form input[type="date"] {
+  background-color: #222239;
+  border-color: #555;
+  color: #ccc;
+}
+
+.todo-form input[type="text"]:focus,
+.todo-form select:focus,
+.todo-form input[type="date"]:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 8px #4a90e2;
+}
+
+.todo-form button {
+  flex: 1 1 100px;
+  padding: 12px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  min-width: 100px;
+  transition: background-color 0.3s;
+}
+
+.todo-form button:hover {
+  background-color: #357abd;
+}
+
+/* Responsive form layout */
+@media (max-width: 700px) {
+  .todo-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .todo-form input[type="text"],
+  .todo-form select,
+  .todo-form input[type="date"],
+  .todo-form button {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Filters - Better spacing and alignment */
+.filters {
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.filters button {
+  flex: 1;
+  background-color: #ddd;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  min-height: 42px;
+}
+
+.app.dark .filters button {
+  background-color: #333;
+  color: #ccc;
+}
+
+.filters button.active,
+.filters button:hover {
+  background-color: #4a90e2;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Categorized lists */
+.categorized-lists {
+  width: 100%;
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.categorized-lists h3 {
+  width: 100%;
+  color: #4a90e2;
+  margin-top: 28px;
+  margin-bottom: 14px;
+  font-weight: 700;
+  border-bottom: 2px solid #91b7c7;
+  padding-bottom: 4px;
+  text-align: left;
+}
+
+.categorized-lists p {
+  font-style: italic;
+  color: #777;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+/* Todo List */
+.todo-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 0 0 16px 0;
+}
+
+/* Empty tasks */
+.empty-tasks {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 20px;
+  color: #888;
+}
+
+/* Todo Item */
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background-color: #f7f9fc;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.app.dark .todo-item {
+  background-color: #2c2c3d;
+}
+
+.todo-item.dragging {
+  box-shadow: 0 0 30px 4px #4a90e2;
+}
+
+.todo-item:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.task-text {
+  flex: 1;
+  cursor: pointer;
+  font-size: 1.05rem;
+  word-break: break-word;
+  user-select: none;
+}
+
+.task-text.completed {
+  text-decoration: line-through;
+  color: #999;
+  font-style: italic;
+}
+
+.app.dark .task-text.completed {
+  color: #555;
+}
+
+.task-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 10px;
+  flex-wrap: wrap;
+}
+
+.priority {
+  border-radius: 12px;
+  padding: 4px 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.priority[title="High"] { background-color: #ff6b6b; }
+.priority[title="Medium"] { background-color: #ffa94d; }
+.priority[title="Low"] { background-color: #4dabf7; }
+
+.deadline {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #888;
+  user-select: none;
+}
+
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 5px;
+  color: #e74c3c;
+  transition: color 0.3s ease;
+}
+
+button:hover {
+  color: #c0392b;
+}
+
+/* Edit Mode */
+.edit-container {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.edit-container input[type="text"],
+.edit-container select,
+.edit-container input[type="date"] {
+  flex: 1 1 150px;
+  border-radius: 10px;
+  border: 1.6px solid #aaa;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.edit-container button {
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.edit-container button:hover {
+  background-color: #357abd;
+}
+
+/* Scrollbar */
+.todo-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background-color: #4a90e2;
+  border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+  background-color: #357abd;
+}
+
+/* Landing page styles */
+.landing-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #bbbaff 0%, #6eb4d1 100%);
+}
+
+.landing-box {
+  background: #fff;
+  padding: 44px 72px;
+  border-radius: 20px;
+  box-shadow: 0 10px 38px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 90vw;
+}
+
+.landing-box h1 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+
+.landing-author {
+  font-size: 1.3rem;
+  color: #6eb4d1;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.enter-btn {
+  background: #357abd;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 13px;
+  padding: 16px 38px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.22s;
+}
+
+.enter-btn:hover {
+  background: #4a90e2;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  margin-top: 32px;
+  font-size: 0.9rem;
+  color: #bbb;
+  text-align: center;
+}
+
+footer a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .separator {
+  margin: 0 6px;
+  color: #888;
+}
+footer .heart {
+  color: #e74c3c;
 }
