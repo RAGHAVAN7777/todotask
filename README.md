@@ -1,6 +1,6 @@
 # 🚀 Raghavan's Advanced To-Do App
 
-# Live Demo: raghavantodo.netlify.app
+# Live Demo: https://raghavantodo.netlify.app
 
 A modern, feature-rich React To-Do application with task categorization, real-time clock, dark/light mode toggle, and smart deadline tracking.
 
